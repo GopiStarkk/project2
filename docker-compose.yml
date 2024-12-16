@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    environment:
+      - JENKINS_ADMIN_ID=admin
+      - JENKINS_ADMIN_PASSWORD=admin_password # Change this to a strong password
+    ports:
+      - "8080:8080"  # Expose port for Jenkins UI
+      - "50000:50000" # Expose port for Jenkins agents
+    volumes:
+      - jenkins_data:/var/jenkins_home  # Volume for Jenkins data persistence
+    restart: always
+
+  # Optionally, you can include a backup service or database here, if required for Jenkins.
+
+volumes:
+  jenkins_data:
+    driver: local  # Using local driver for persistence. You can configure additional options if needed.
